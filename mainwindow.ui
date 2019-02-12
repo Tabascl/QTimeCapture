@@ -63,7 +63,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QTableView" name="tableView"/>
+     <layout class="QHBoxLayout" name="weekLayout"/>
     </item>
    </layout>
   </widget>

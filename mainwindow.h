@@ -17,10 +17,10 @@ public:
 
 private slots:
     void on_actionClose_triggered();
-
     void on_actionImport_triggered();
 
 private:
+    void makeWeek();
     Ui::MainWindow *ui;
 };
 

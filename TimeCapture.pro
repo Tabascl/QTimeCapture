@@ -28,16 +28,29 @@ SOURCES += \
         main.cpp \
     csvimport.cpp \
     csvreader.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    workweek.cpp \
+    workday.cpp \
+    dayentry.cpp \
+    company.cpp \
+    defaultentry.cpp
 
 HEADERS += \
     csvimport.h \
     csvreader.h \
-    mainwindow.h
+    mainwindow.h \
+    workweek.h \
+    workday.h \
+    dayentry.h \
+    company.h \
+    defaultentry.h
 
 FORMS += \
     csvimport.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    workweek.ui \
+    workday.ui \
+    dayentry.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
