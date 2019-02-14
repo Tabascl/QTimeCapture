@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QDateTime>
+#include <QDate>
+#include <QPointer>
 
 #include <csvimport.h>
 #include <workday.h>
@@ -9,11 +10,26 @@
 #include <dayentry.h>
 #include <defaultentry.h>
 
+namespace WeekDayHelpers {
+    QDate StartOfWeek(QDate date)
+    {
+        auto dayOfWeek = date.dayOfWeek();
+        return date.addDays(-(dayOfWeek-1));
+    }
+
+    QDate EndOfWeek(QDate date)
+    {
+        auto dayOfWeek = date.dayOfWeek();
+        auto diff = 5 - dayOfWeek;
+        return date.addDays(diff);
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    auto today = QDateTime::currentDateTime().date();
+    auto today = QDate::currentDate();
 
     auto cwString = tr("CW") + QString::number(today.weekNumber());
     auto dateString = today.toString("dddd, dd.MM.yyyy");
@@ -39,22 +55,17 @@ void MainWindow::on_actionImport_triggered()
 
 void MainWindow::makeWeek()
 {
-    auto day1 = new WorkDay(QDate(2019, 02, 01), this);
-    auto day2 = new WorkDay(QDate(2019, 02, 02), this);
-    auto day3 = new WorkDay(QDate(2019, 02, 03), this);
-    auto day4 = new WorkDay(QDate(2019, 02, 04), this);
-    auto day5 = new WorkDay(QDate(2019, 02, 05), this);
+    auto today = QDate::currentDate();
 
-    auto dentry = DefaultEntry();
-    auto entry1 = new DayEntry(dentry, this);
+    auto weekStart = WeekDayHelpers::StartOfWeek(today);
+    auto weekEnd = WeekDayHelpers::EndOfWeek(today);
 
-    day1->AddEntry(entry1);
-
-    ui->weekLayout->addWidget(day1);
-    ui->weekLayout->addWidget(day2);
-    ui->weekLayout->addWidget(day3);
-    ui->weekLayout->addWidget(day4);
-    ui->weekLayout->addWidget(day5);
+    for (int i = 0; i < weekStart.daysTo(weekEnd)+1; i++)
+    {
+        auto targetDay = weekStart.addDays(i);
+        auto day = QPointer<WorkDay>(new WorkDay(targetDay));
+        ui->weekLayout->addWidget(day);
+    }
 }
 
 MainWindow::~MainWindow()

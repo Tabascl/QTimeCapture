@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = TimeCapture
+TARGET = gui
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -24,33 +24,36 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+INCLUDEPATH += \
+    source/include
+
 SOURCES += \
-        main.cpp \
-    csvimport.cpp \
-    csvreader.cpp \
-    mainwindow.cpp \
-    workweek.cpp \
-    workday.cpp \
-    dayentry.cpp \
-    company.cpp \
-    defaultentry.cpp
+    source/src/company.cpp \
+    source/src/csvimport.cpp \
+    source/src/csvreader.cpp \
+    source/src/dayentry.cpp \
+    source/src/defaultentry.cpp \
+    source/src/main.cpp \
+    source/src/mainwindow.cpp \
+    source/src/workday.cpp \
+    source/src/workweek.cpp
 
 HEADERS += \
-    csvimport.h \
-    csvreader.h \
-    mainwindow.h \
-    workweek.h \
-    workday.h \
-    dayentry.h \
-    company.h \
-    defaultentry.h
+    source/include/company.h \
+    source/include/csvimport.h \
+    source/include/csvreader.h \
+    source/include/dayentry.h \
+    source/include/defaultentry.h \
+    source/include/mainwindow.h \
+    source/include/workday.h \
+    source/include/workweek.h
 
 FORMS += \
-    csvimport.ui \
-    mainwindow.ui \
-    workweek.ui \
-    workday.ui \
-    dayentry.ui
+    gui/csvimport.ui \
+    gui/mainwindow.ui \
+    gui/workweek.ui \
+    gui/workday.ui \
+    gui/dayentry.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -59,3 +62,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     textfinder.qrc
+
+DISTFILES += \
+    include/include.pri
