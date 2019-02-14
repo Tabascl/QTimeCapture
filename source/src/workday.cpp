@@ -7,6 +7,8 @@ WorkDay::WorkDay(QDate date, QWidget *parent) :
     date(date)
 {
     ui->setupUi(this);
+    addBtn = QSharedPointer<QPushButton>(ui->addButton);
+    ui->addButton->setStyleSheet("#QPushButton:focus { background-color: red; }");
 
     QString dayString(date.toString("dddd, dd"));
 
@@ -15,9 +17,14 @@ WorkDay::WorkDay(QDate date, QWidget *parent) :
     QString styleSheet = "#dayGroup { border:%1px solid %2; font: bold; margin-top: 6px; } #dayGroup::title { subcontrol-origin: margin; left: 7px; padding: 0px 5px 0px 5px; }";
 
     if (date == QDate::currentDate())
+    {
         ui->dayGroup->setStyleSheet(styleSheet.arg("2", "maroon"));
+        ui->dayGroup->setFocus(Qt::FocusReason::TabFocusReason);
+    }
     else
+    {
         ui->dayGroup->setStyleSheet(styleSheet.arg("1", "silver"));
+    }
 }
 
 void WorkDay::AddEntry(DayEntry *entry)

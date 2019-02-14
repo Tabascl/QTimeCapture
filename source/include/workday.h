@@ -2,6 +2,7 @@
 #define WORKDAY_H
 
 #include <QWidget>
+#include <QPushButton>
 
 #include <QDate>
 #include <dayentry.h>
@@ -20,6 +21,8 @@ public:
     void AddEntry(DayEntry *entry);
 
     ~WorkDay();
+
+    QSharedPointer<QPushButton> addBtn;
 
 private:
     Ui::WorkDay *ui;
